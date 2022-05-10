@@ -18,14 +18,14 @@ class ApiClient extends GetConnect {
     }
   }
 
-  Future fetch2921983Json(
+  Future fetchComments(id,
       {Function(dynamic data)? onSuccess,
       Function(dynamic error)? onError}) async {
     ProgressDialogUtils.showProgressDialog();
     try {
       await isNetworkConnected();
       Response response =
-          await httpClient.get('/v0/item/2921983.json?print=pretty');
+          await httpClient.get('/v0/item/$id.json?print=pretty');
       ProgressDialogUtils.hideProgressDialog();
       if (response.statusCode == 200) {
         onSuccess!(response.body);
@@ -46,28 +46,24 @@ class ApiClient extends GetConnect {
     ProgressDialogUtils.showProgressDialog();
     try {
       await isNetworkConnected();
-      Response response =
-          await httpClient.get('/v0/item/8863.json?print=pretty');
-      ProgressDialogUtils.hideProgressDialog();
-      if (response.statusCode == 200) {
-        onSuccess!({
-          "allData": [
-            response.body,
-            response.body,
-            response.body,
-            response.body,
-            response.body,
-            response.body,
-            response.body,
-            response.body,
-            response.body,
-            response.body,
-            response.body
-          ]
-        });
+      Response topStoryResponse = await httpClient.get('/v0/topstories.json');
+      if (topStoryResponse.statusCode == 200) {
+        List<dynamic> postArray = [];
+        List<dynamic> postArrayInt = topStoryResponse.body;
+        for (var i = 0; i <= 5; i++) {
+          Response response = await httpClient
+              .get('/v0/item/${postArrayInt[i]}.json?print=pretty');
+          if (response.statusCode == 200) {
+            postArray.add(response.body);
+          }
+        }
+        ProgressDialogUtils.hideProgressDialog();
+        onSuccess!({'allData': postArray});
       } else {
         onError!(
-          response.hasError ? response.statusText : 'Something Went Wrong!',
+          topStoryResponse.hasError
+              ? topStoryResponse.statusText
+              : 'Something Went Wrong!',
         );
       }
     } catch (error) {
@@ -76,7 +72,7 @@ class ApiClient extends GetConnect {
     }
   }
 
-  Future fetchTopstoriesJson(
+  Future fetchTopStoriesJson(
       {Function(dynamic data)? onSuccess,
       Function(dynamic error)? onError}) async {
     ProgressDialogUtils.showProgressDialog();

@@ -1,6 +1,6 @@
-import '../drawerx_draweritem/controller/drawerx_controller.dart';
-import '../drawerx_draweritem/drawerx_draweritem.dart';
-import '../home_screen/widgets/home_item_widget.dart';
+import 'package:hakernewsapp/presentation/drawerx_draweritem/controller/drawerx_controller.dart';
+import 'package:hakernewsapp/presentation/drawerx_draweritem/drawerx_draweritem.dart';
+import 'package:hakernewsapp/presentation/home_screen/widgets/home_item_widget.dart';
 import 'controller/home_controller.dart';
 import 'models/home_item_model.dart';
 import 'package:flutter/material.dart';
@@ -130,16 +130,10 @@ class HomeScreen extends GetWidget<HomeController> {
                                               .homeModelObj
                                               .value
                                               .homeItemList[index];
-                                          return HomeItemWidget(model,
-                                              onTapImgMessagesquare:
-                                                  onTapImgMessagesquare);
+                                          return HomeItemWidget(model);
                                         })))
                               ])))),
             )));
-  }
-
-  onTapImgMessagesquare() {
-    Get.toNamed(AppRoutes.commentsScreen);
   }
 
   onTapImgMenu() {

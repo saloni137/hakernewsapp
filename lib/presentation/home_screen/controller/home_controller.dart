@@ -63,7 +63,11 @@ class HomeController extends GetxController with StateMixin<dynamic> {
       for (var element in get8863JsonResp.allData!) {
         var homeItemModel = HomeItemModel();
         homeItemModel.k100yearoldBrTxt.value = element.title!.toString();
-        // homeItemModel.value = element.url!.toString();
+        // homeItemModel.url.value = element.url!.toString();
+        homeItemModel.aaronbrethorstTxt.value = element.by!.toString();
+        homeItemModel.k2hrsagoTxt.value = element.time!.toString();
+        homeItemModel.k157pointsTxt.value = element.score!.toString();
+        homeItemModel.id = element.id!.toString();
         homeItemModelList.add(homeItemModel);
       }
     }

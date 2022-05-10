@@ -1,27 +1,19 @@
-class Get2921983JsonResp {
+class GetCommentJsonResp {
   String? by;
   int? id;
-  List<int>? kids;
   int? parent;
-  String? text;
+  String? title;
   int? time;
   String? type;
 
-  Get2921983JsonResp(
-      {this.by,
-      this.id,
-      this.kids,
-      this.parent,
-      this.text,
-      this.time,
-      this.type});
+  GetCommentJsonResp(
+      {this.by, this.id, this.parent, this.title, this.time, this.type});
 
-  Get2921983JsonResp.fromJson(Map<String, dynamic> json) {
+  GetCommentJsonResp.fromJson(Map<String, dynamic> json) {
     by = json['by'];
     id = json['id'];
-    kids = json['kids'].cast<int>();
     parent = json['parent'];
-    text = json['text'];
+    title = json['title'];
     time = json['time'];
     type = json['type'];
   }
@@ -34,14 +26,11 @@ class Get2921983JsonResp {
     if (this.id != null) {
       data['id'] = this.id;
     }
-    if (this.kids != null) {
-      data['kids'] = this.kids;
-    }
     if (this.parent != null) {
       data['parent'] = this.parent;
     }
-    if (this.text != null) {
-      data['text'] = this.text;
+    if (this.title != null) {
+      data['title'] = this.title;
     }
     if (this.time != null) {
       data['time'] = this.time;

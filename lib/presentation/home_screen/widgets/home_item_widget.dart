@@ -1,18 +1,19 @@
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+
 import '../controller/home_controller.dart';
 import '../models/home_item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hakernewsapp/core/app_export.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
 class HomeItemWidget extends StatelessWidget {
-  HomeItemWidget(this.homeItemModelObj, {this.onTapImgMessagesquare});
+  HomeItemWidget(this.homeItemModelObj);
 
   HomeItemModel homeItemModelObj;
 
   var controller = Get.find<HomeController>();
-
-  VoidCallback? onTapImgMessagesquare;
 
   @override
   Widget build(BuildContext context) {
@@ -270,7 +271,7 @@ class HomeItemWidget extends StatelessWidget {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                onTapImgMessagesquare!();
+                                onTapImgMessageSquare(homeItemModelObj.id);
                               },
                               child: Container(
                                 height: getSize(
@@ -332,4 +333,14 @@ class HomeItemWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+storeDataInPref(id) async {
+  SharedPreferences pref = await SharedPreferences.getInstance();
+  pref.setString("currentItem", id);
+}
+
+onTapImgMessageSquare(id) {
+  storeDataInPref(id);
+  Get.toNamed(AppRoutes.commentsScreen);
 }

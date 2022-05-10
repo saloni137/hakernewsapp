@@ -7,6 +7,7 @@ class SplashscreenController extends GetxController with StateMixin<dynamic> {
   @override
   void onReady() {
     super.onReady();
+
     Get.offAllNamed(AppRoutes.homeScreen);
   }
 

@@ -3,17 +3,18 @@ import 'package:hakernewsapp/presentation/comments_screen/models/comments_model.
 import 'package:flutter/material.dart';
 import 'package:hakernewsapp/data/models/2921983Json/get2921983_json_resp.dart';
 import 'package:hakernewsapp/data/apiClient/api_client.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CommentsController extends GetxController with StateMixin<dynamic> {
   Rx<CommentsModel> commentsModelObj = CommentsModel().obs;
 
-  Get2921983JsonResp get2921983JsonResp = Get2921983JsonResp();
+  GetCommentJsonResp getCommentsJsonResp = GetCommentJsonResp();
 
   @override
   void onReady() {
     super.onReady();
-    this.callFetch2921983Json(
-      successCall: _onFetch2921983JsonSuccess,
+    this.callFetchComments(
+      successCall: _onFetchCommentsJsonSuccess,
     );
   }
 
@@ -22,26 +23,27 @@ class CommentsController extends GetxController with StateMixin<dynamic> {
     super.onClose();
   }
 
-  void callFetch2921983Json(
+  void callFetchComments(
       {VoidCallback? successCall, VoidCallback? errCall}) async {
-    return Get.find<ApiClient>().fetch2921983Json(onSuccess: (resp) {
-      onFetch2921983JsonSuccess(resp);
+    return Get.find<ApiClient>().fetchComments(await getSharedPref(),
+        onSuccess: (resp) {
+      onFetchCommentsJsonSuccess(resp);
       if (successCall != null) {
         successCall();
       }
     }, onError: (err) {
-      onFetch2921983JsonError(err);
+      onFetchCommentsJsonError(err);
       if (errCall != null) {
         errCall();
       }
     });
   }
 
-  void onFetch2921983JsonSuccess(var response) {
-    get2921983JsonResp = Get2921983JsonResp.fromJson(response);
+  void onFetchCommentsJsonSuccess(var response) {
+    getCommentsJsonResp = GetCommentJsonResp.fromJson(response);
   }
 
-  void onFetch2921983JsonError(var err) {
+  void onFetchCommentsJsonError(var err) {
     if (err is NoInternetException) {
       Get.rawSnackbar(
         messageText: Text(
@@ -54,12 +56,17 @@ class CommentsController extends GetxController with StateMixin<dynamic> {
     }
   }
 
-  void _onFetch2921983JsonSuccess() {
+  void _onFetchCommentsJsonSuccess() {
     commentsModelObj.value.aaronbrethorstTxt.value =
-        get2921983JsonResp.by!.toString();
+        getCommentsJsonResp.by!.toString();
     commentsModelObj.value.twoHrsAgoTxt.value =
-        get2921983JsonResp.time!.toString();
+        getCommentsJsonResp.time!.toString();
     commentsModelObj.value.yearoldBrTxt.value =
-        get2921983JsonResp.text!.toString();
+        getCommentsJsonResp.title!.toString();
+  }
+
+  getSharedPref() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return preferences.getString('currentItem');
   }
 }
