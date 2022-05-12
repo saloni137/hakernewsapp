@@ -56,4 +56,8 @@ class DrawerxDraweritem extends StatelessWidget {
       ),
     );
   }
+
+  onTapTxtNews() {
+    Get.toNamed(AppRoutes.homeScreen);
+  }
 }

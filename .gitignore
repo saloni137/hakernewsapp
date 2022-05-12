@@ -7,3 +7,8 @@ pubspec.lock
 .flutter-plugins-dependencies
 .flutter-plugins
 .dhiwise
+windows
+web
+.metadata
+hakernewsapp.iml
+analysis_options.yaml
