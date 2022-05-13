@@ -26,8 +26,18 @@ class ApiClient extends GetConnect {
       await isNetworkConnected();
       Response response =
           await httpClient.get('/v0/item/$id.json?print=pretty');
-      ProgressDialogUtils.hideProgressDialog();
       if (response.statusCode == 200) {
+        List<dynamic> commentArray = response.body['kids'];
+        List comments = [];
+        for (var i = 0; i < commentArray.length; i++) {
+          Response comment = await httpClient
+              .get('/v0/item/${commentArray[i]}.json?print=pretty');
+          if (comment.statusCode == 200 && comment.body['type'] == 'comment') {
+            comments.add(comment.body);
+          }
+          response.body['kids'] = comments;
+        }
+        ProgressDialogUtils.hideProgressDialog();
         onSuccess!(response.body);
       } else {
         onError!(

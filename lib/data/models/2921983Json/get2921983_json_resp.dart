@@ -1,23 +1,28 @@
 class GetCommentJsonResp {
   String? by;
+  int? descendants;
   int? id;
   List<Kids>? kids;
-  int? parent;
-  String? title;
+  int? score;
   int? time;
+  String? title;
   String? type;
+  String? url;
 
   GetCommentJsonResp(
       {this.by,
+      this.descendants,
       this.id,
       this.kids,
-      this.parent,
-      this.title,
+      this.score,
       this.time,
-      this.type});
+      this.title,
+      this.type,
+      this.url});
 
   GetCommentJsonResp.fromJson(Map<String, dynamic> json) {
     by = json['by'];
+    descendants = json['descendants'];
     id = json['id'];
     if (json['kids'] != null) {
       kids = <Kids>[];
@@ -25,10 +30,11 @@ class GetCommentJsonResp {
         kids?.add(Kids.fromJson(v));
       });
     }
-    parent = json['parent'];
-    title = json['title'];
+    score = json['score'];
     time = json['time'];
+    title = json['title'];
     type = json['type'];
+    url = json['url'];
   }
 
   Map<String, dynamic> toJson() {
@@ -36,23 +42,29 @@ class GetCommentJsonResp {
     if (this.by != null) {
       data['by'] = this.by;
     }
+    if (this.descendants != null) {
+      data['descendants'] = this.descendants;
+    }
     if (this.id != null) {
       data['id'] = this.id;
     }
     if (this.kids != null) {
       data['kids'] = this.kids?.map((v) => v.toJson()).toList();
     }
-    if (this.parent != null) {
-      data['parent'] = this.parent;
-    }
-    if (this.title != null) {
-      data['title'] = this.title;
+    if (this.score != null) {
+      data['score'] = this.score;
     }
     if (this.time != null) {
       data['time'] = this.time;
     }
+    if (this.title != null) {
+      data['title'] = this.title;
+    }
     if (this.type != null) {
       data['type'] = this.type;
+    }
+    if (this.url != null) {
+      data['url'] = this.url;
     }
     return data;
   }
@@ -61,25 +73,16 @@ class GetCommentJsonResp {
 class Kids {
   String? by;
   int? id;
-  List<int>? kids;
   int? parent;
   String? text;
   int? time;
   String? type;
 
-  Kids(
-      {this.by,
-      this.id,
-      this.kids,
-      this.parent,
-      this.text,
-      this.time,
-      this.type});
+  Kids({this.by, this.id, this.parent, this.text, this.time, this.type});
 
   Kids.fromJson(Map<String, dynamic> json) {
     by = json['by'];
     id = json['id'];
-    kids = json['kids'].cast<int>();
     parent = json['parent'];
     text = json['text'];
     time = json['time'];
@@ -93,9 +96,6 @@ class Kids {
     }
     if (this.id != null) {
       data['id'] = this.id;
-    }
-    if (this.kids != null) {
-      data['kids'] = this.kids;
     }
     if (this.parent != null) {
       data['parent'] = this.parent;

@@ -58,8 +58,7 @@ class HomeController extends GetxController with StateMixin<dynamic> {
 
   void _onFetch8863JsonSuccess() {
     List<HomeItemModel> homeItemModelList = [];
-    if (get8863JsonResp.allData! != null &&
-        get8863JsonResp.allData!.isNotEmpty) {
+    if (get8863JsonResp.allData!.isNotEmpty) {
       for (var element in get8863JsonResp.allData!) {
         var homeItemModel = HomeItemModel();
         homeItemModel.k100yearoldBrTxt.value = element.title!.toString();

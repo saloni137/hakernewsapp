@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'group21listview_item_model.dart';
+import 'comments_item_model.dart';
 
 class CommentsModel {
   Rx<String> aaronbrethorstTxt = Rx('Lorem ipsum dolor sit amet');
@@ -10,6 +10,8 @@ class CommentsModel {
 
   Rx<String> titleText = Rx('Lorem ipsum dolor sit amet');
 
-  RxList<Group21listviewItemModel> group21listviewItemList =
-      RxList.filled(2, Group21listviewItemModel());
+  Rx<String> pointsTxt = Rx('110');
+
+  RxList<CommentsItemModel> commentItemList =
+      RxList.filled(2, CommentsItemModel());
 }

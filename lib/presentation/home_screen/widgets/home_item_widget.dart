@@ -1,5 +1,3 @@
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-
 import '../controller/home_controller.dart';
 import '../models/home_item_model.dart';
 import 'package:flutter/material.dart';
